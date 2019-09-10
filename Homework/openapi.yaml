@@ -1,0 +1,509 @@
+openapi: 3.0.0
+info:
+  title: Game_Store
+  description: Create, find invoices.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+    description: Local dev server
+paths:
+  /game:
+    get:
+      summary: Retrieves details of all games
+      responses:
+        '200':
+          description: list of all the games
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+    put:
+      summary: Update game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: list of updated game
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+        '422':
+          description: Missing a field
+        '415':
+          description: Unsupported media type, the request body should be json
+    post:
+      summary: Add the game
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Game'
+      responses:
+        '200':
+          description: list of the game
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Bad Request
+        '422':
+          description: Missing a field
+        '415':
+          description: Unsupported media type, the request body should be json
+  /game/{id}:
+    get:
+      summary: Retrieves details of the game with the specified id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the game we arfe looking for
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: show the game with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Bad Request
+        '404':
+          description: Id not found
+    delete:
+      summary: Delete all the data related to the game with the specified id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the game we are looking for
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: show the game with the specified id
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+        '404':
+          description: Id not found
+  /game/{studio}:
+    get:
+      summary: Retrieves details of the game with the specified studio
+      parameters:
+        - name: studio
+          in: path
+          required: true
+          description: The studio of the game we are looking for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: show the game with the specified studio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Bad Request
+        '404':
+          description: studio not found
+  /game/{esbrRating}:
+    get:
+      summary: Retrieves details of the game with the specified esbr rating
+      parameters:
+        - name: esbrRating
+          in: path
+          required: true
+          description: The esbr rating of the game we are looking for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: show the game with the specified esbr rating 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Bad Request
+        '404':
+          description: ISBR rating not found
+  /game/{title}:
+    get:
+      summary: Retrieves details of the game with the specified title
+      parameters:
+        - name: title
+          in: path
+          required: true
+          description: The title of the game we are looking for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: show the game with the specified title 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Bad Request
+        '404':
+          description: Title not found                
+  /console:
+    get:
+      summary: Retrieves details of all the consoles
+      responses:
+        '200':
+          description: list of all the consoles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Console'
+    put:
+      summary: Update the console
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: list of all the updated consoles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Console'
+        '400':
+          description: Bad Request
+        '422':
+          description: Missing a field
+        '415':
+          description: Unsupported media type, the request body should be json
+    post:
+      summary: Add the console
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Console'
+      responses:
+        '200':
+          description: list of all the items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Console'
+        '400':
+          description: Bad Request
+        '422':
+          description: Missing a field
+        '415':
+          description: Unsupported media type, the request body should be json
+  /console/{id}:
+    get:
+      summary: Retrieves details of the console with the specified id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the console we are looking for
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: show the console with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Console'
+        '400':
+          description: Bad Request
+        '404':
+          description: Id not found
+    delete:
+      summary: Delete all the data related to the console with the specified id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the console we are looking for
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: show the console with the specified id
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+        '404':
+          description: Id not found
+  /console/{manufacturer}:
+    get:
+      summary: Retrieves details of the console with the specified manufacturer
+      parameters:
+        - name: manufacturer
+          in: path
+          required: true
+          description: The manufaturer of the console we are looking for
+          schema:
+            type: string
+      responses:
+        '200':
+          description: show the console with the specified manufacturer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Console'
+        '400':
+          description: Bad Request
+        '404':
+          description: Manufacture not found        
+  /tshirt:
+    get:
+      summary: Retrieves details of all the tshirt
+      responses:
+        '200':
+          description: list of all the tshirs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tshirt'
+    post:
+      summary: Add the tshirt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tshirt'
+      responses:
+        '200':
+          description: list of all the Tshirt
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tshirt'
+        '400':
+          description: Bad Request
+        '422':
+          description: Missing a field
+        '415':
+          description: Unsupported media type, the request body should be json
+    put:
+      summary: Update tshirt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tshirt'
+      responses:
+        '200':
+          description: list of all the updated tshirts
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+        '422':
+          description: Missing a field
+        '415':
+          description: Unsupported media type, the request body should be json
+  /tshirt/{id}:
+    get:
+      summary: Retrieves invoices with the specified id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the tshirt we are looking for
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: show the tshirt with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tshirt'
+        '400':
+          description: Bad Request
+        '404':
+          description: Id not found
+    delete:
+      summary: Delete all the data related to the tshirt with the specified id
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the tshirt we are looking for
+          schema:
+            type: integer
+            format: int64
+            minimum: 1
+      responses:
+        '200':
+          description: show the tshirt with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tshirt'
+        '400':
+          description: Bad Request
+        '404':
+          description: Id not found
+  /tshirt/{color}:
+    get:
+      summary: Retrieves invoices with the specified color
+      parameters:
+        - name: color
+          in: path
+          required: true
+          description: The color of the tshirt we are looking for
+          schema:
+            type: string
+            format: string
+            minimum: 1
+      responses:
+        '200':
+          description: show the tshirt with the specified color
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tshirt'
+        '400':
+          description: Bad Request
+        '404':
+          description: Color not found
+  /tshirt/{size}:
+    get:
+      summary: Retrieves invoices with the specified size
+      parameters:
+        - name: size
+          in: path
+          required: true
+          description: The size of the tshirt we are looking for
+          schema:
+            type: string
+            format: string
+            minimum: 1
+      responses:
+        '200':
+          description: show the tshirt with the specified size
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tshirt'
+        '400':
+          description: Bad Request
+        '404':
+          description: Size not found 
+
+components:
+  schemas:
+    Game:
+      type: object
+      items:
+        type: object
+        properties:
+          gameId:
+            type: integer
+          title:
+            type: string
+          esbrRating:
+            type: string
+          description:
+            type: string
+          price:
+            type: number
+          studio:
+            type: string
+          quantity:
+            type: integer
+      required:
+          - title
+          - esbrRating
+          - descprition
+          - price
+          - studio
+          - quantity
+    Console:
+      type: array
+      items:
+        type: object
+        properties:
+          consoleId:
+            type: integer
+          model:
+            type: string
+          manufacturer:
+            type: string
+          memoryAmount:
+            type: string
+          processor:
+            type: string
+          price:
+            type: number
+          quantity:
+            type: integer
+        required:
+          - model
+          - manufacturer
+          - memoryAmount
+          - processor
+          - price
+          - quantity
+    Tshirt:
+      type: object
+      items:
+        type: object
+        properties:
+          TshirtId:
+            type: integer
+          size:
+            type: string
+          color: 
+            type: string
+          description:
+            type: string
+          price:
+            type: number
+          quantity:
+            type: number
+        required:
+          - size
+          - color
+          - description
+          - price
+          - quantity
+    
